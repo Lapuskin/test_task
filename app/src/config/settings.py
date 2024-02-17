@@ -1,0 +1,7 @@
+PROJECT_SETTINGS = {
+    'PROJECT_NAME': 'test',
+    'DEBUG': True,
+    'VERSION': 1
+}
+
+CORS_ALLOWED_ORIGINS = ''
