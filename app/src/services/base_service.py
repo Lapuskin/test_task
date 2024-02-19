@@ -4,21 +4,22 @@ from sqlalchemy.orm import Session
 
 
 class AbstractCRUDHandler(ABC):
-    def __init__(self, db: Session):
-        self.__db = db
-
     @abstractmethod
-    def get(self, **kwargs):
+    def all(self, db: Session):
         pass
 
     @abstractmethod
-    def create(self, **kwargs):
+    def get(self, id: int, db: Session):
         pass
 
     @abstractmethod
-    def update(self, **kwargs):
+    def create(self, data: dict, db: Session):
         pass
 
     @abstractmethod
-    def delete(self):
+    def update(self, data: dict, db: Session):
+        pass
+
+    @abstractmethod
+    def delete(self, id:int, db: Session):
         pass

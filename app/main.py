@@ -4,9 +4,6 @@ from starlette.middleware.cors import CORSMiddleware
 
 from app.router import get_apps_router
 from app.src.config import settings
-from app.src.config.db_settings.db_settings import engine, SessionLocal
-from app.src.models.notes_model import Base
-
 
 def get_application() -> FastAPI:
     application = FastAPI(
@@ -24,14 +21,6 @@ def get_application() -> FastAPI:
         allow_headers=["*"],
     )
     return application
-
-
-def get_db():
-    db = SessionLocal
-    try:
-        yield db
-    finally:
-        db.close()
 
 
 app = get_application()
