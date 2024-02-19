@@ -1,6 +1,6 @@
 import datetime
 
-from fastapi import HTTPException
+from fastapi import HTTPException, Cookie
 from jose import jwt, JWTError
 from passlib.context import CryptContext
 from sqlalchemy.orm import Session
@@ -33,9 +33,9 @@ def authenicate_user(username: str, password: str, db: Session):
         return user
 
 
-def get_curr_user(token):
+async def get_curr_user(jwt_token=Cookie()):
     try:
-        payload = jwt.decode(token, AUTH_SETTINGS['SECRET_KEY'], algorithm=[AUTH_SETTINGS['ALGORITHM']])
+        payload = jwt.decode(jwt_token, AUTH_SETTINGS['SECRET_KEY'])
         name: str = payload.get('sub')
         id: int = payload.get('id')
         if name is None or id is None:

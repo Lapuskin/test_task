@@ -11,8 +11,7 @@ from src.services.auth import authenicate_user, create_access_token, get_curr_us
 router = APIRouter(prefix='/auth', tags=['auth'])
 
 
-@router.get('/check')
-def check_permissions(user=Depends(get_curr_user)):
+def check_auth(user):
     if user is None:
         raise HTTPException(status_code=401)
     return user
@@ -23,7 +22,7 @@ def register(data=Body(), db: Session = Depends(get_db)):
     pass
 
 
-@router.post("/token")
+@router.post("/login")
 def login_for_access_token(response: Response, data=Body(), db: Session = Depends(get_db)):
     user = authenicate_user(data['name'], data['password'], db)
     if not user:

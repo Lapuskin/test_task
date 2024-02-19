@@ -17,9 +17,9 @@ class AbstractCRUDHandler(ABC):
         pass
 
     @abstractmethod
-    def update(self, data: dict, db: Session):
+    def update(self, data: dict, db: Session, entity):
         pass
 
     @abstractmethod
-    def delete(self, id:int, db: Session):
+    def delete(self, id: int, db: Session):
         pass
