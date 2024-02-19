@@ -44,3 +44,12 @@ class NotesHandler(AbstractCRUDHandler):
         except:
             return None
 
+
+    def filter(self, db: Session, **kwargs):
+        query = db.query(Note)
+        for key, value in kwargs.items():
+            query = query.filter(getattr(Note, key) == value)
+
+        notes = query.all()
+        return notes
+

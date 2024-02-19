@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from fastapi import APIRouter, Body, HTTPException
 from sqlalchemy.orm import Session
 from starlette.responses import JSONResponse
@@ -8,12 +10,22 @@ from src.controllers.auth import check_auth
 from src.services.auth import get_curr_user
 from src.services.base_service import AbstractCRUDHandler
 
+from fastapi import Depends
+
 router = APIRouter(prefix='/notes', tags=['notes'])
 
 notes_handler: AbstractCRUDHandler = NotesHandler()
 
 
-from fastapi import Depends
+@router.get("/current")
+def get_notes_by_user(created_at: datetime = None, title: str = None, db: Session = Depends(get_db), user=Depends(get_curr_user)):
+    current_user = check_auth(user)
+    kwargs = {'user_id': current_user['id']}
+    if created_at:
+        kwargs['created_at'] = created_at
+    if title:
+        kwargs['title'] = title
+    return notes_handler.filter(db, **kwargs)
 
 
 @router.get('/')
@@ -61,3 +73,4 @@ def delete_note(id: int, db: Session = Depends(get_db), user=Depends(get_curr_us
         raise HTTPException(status_code=403)
     else:
         return notes_handler.delete(note.id)
+

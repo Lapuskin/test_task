@@ -23,3 +23,7 @@ class AbstractCRUDHandler(ABC):
     @abstractmethod
     def delete(self, id: int, db: Session):
         pass
+
+    @abstractmethod
+    def filter(self, db: Session, **kwargs):
+        pass

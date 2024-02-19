@@ -1,11 +1,14 @@
-
 from sqlalchemy.orm import Session
 
 from app.src.services.base_service import AbstractCRUDHandler
 from src.services.auth import bcrypt_context
 from src.models.notes_model import User
 
+
 class UserHandler(AbstractCRUDHandler):
+    def filter(self, db: Session, **kwargs):
+        pass
+
     def all(self, db: Session):
         return db.query(User).all()
 
