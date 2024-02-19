@@ -1,3 +1,5 @@
+# Настройки для всего проекта. Хорошо было бы добавить в окружение.
+
 PROJECT_SETTINGS = {
     'PROJECT_NAME': 'test',
     'DEBUG': True,

@@ -12,13 +12,17 @@ from src.services.base_service import AbstractCRUDHandler
 
 from fastapi import Depends
 
+# Эндпоинты для модуля работы с заметками здесь.
+
 router = APIRouter(prefix='/notes', tags=['notes'])
 
 notes_handler: AbstractCRUDHandler = NotesHandler()
 
 
 @router.get("/current")
-def get_notes_by_user(created_at: datetime = None, title: str = None, db: Session = Depends(get_db), user=Depends(get_curr_user)):
+def get_notes_by_user(created_at: datetime = None,
+                      title: str = None, db: Session = Depends(get_db),
+                      user=Depends(get_curr_user)):
     current_user = check_auth(user)
     kwargs = {'user_id': current_user['id']}
     if created_at:

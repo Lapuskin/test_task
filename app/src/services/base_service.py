@@ -4,6 +4,10 @@ from sqlalchemy.orm import Session
 
 
 class AbstractCRUDHandler(ABC):
+    '''Абстрактный круд класс, который используется подобно интерфейсу, для инверсии зависимостей.
+    Все обработчики наследуются от него'''
+
+
     @abstractmethod
     def all(self, db: Session):
         pass

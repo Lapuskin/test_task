@@ -13,6 +13,7 @@ bcrypt_context = CryptContext(schemes=['bcrypt'], deprecated='auto')
 
 
 def create_access_token(username: str, user_id: int, expires_delta: datetime.timedelta):
+    '''Создаем токен здесь, добавляем полезную нагрузку и шифруем секретным ключом'''
     expires = datetime.datetime.utcnow() + expires_delta
     encode = {
         'sub': username,
@@ -24,6 +25,7 @@ def create_access_token(username: str, user_id: int, expires_delta: datetime.tim
 
 
 def authenicate_user(username: str, password: str, db: Session):
+    ''''''
     user = db.query(User).filter(User.name == username).first()
     if not user:
         return False
@@ -34,6 +36,7 @@ def authenicate_user(username: str, password: str, db: Session):
 
 
 async def get_curr_user(jwt_token=Cookie()):
+    '''Проверка подлинности запроса. Авторизация.'''
     try:
         payload = jwt.decode(jwt_token, AUTH_SETTINGS['SECRET_KEY'])
         name: str = payload.get('sub')

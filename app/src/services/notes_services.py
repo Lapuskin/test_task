@@ -8,6 +8,9 @@ from src.models.notes_model import Note
 
 
 class NotesHandler(AbstractCRUDHandler):
+    """
+    CRUD обработчик заметок
+    """
     def all(self, db: Session):
         return db.query(Note).all()
 
@@ -46,6 +49,9 @@ class NotesHandler(AbstractCRUDHandler):
 
 
     def filter(self, db: Session, **kwargs):
+        '''
+        Самописная гибкая фильтрация, если вдруг что.
+        '''
         query = db.query(Note)
         for key, value in kwargs.items():
             query = query.filter(getattr(Note, key) == value)
