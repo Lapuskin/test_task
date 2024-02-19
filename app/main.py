@@ -9,7 +9,7 @@ def get_application() -> FastAPI:
     application = FastAPI(
         title=settings.PROJECT_SETTINGS['PROJECT_NAME'],
         debug=settings.PROJECT_SETTINGS['DEBUG'],
-        version=settings.PROJECT_SETTINGS['VERSION']
+        version=settings.PROJECT_SETTINGS['VERSION'],
     )
     application.include_router(get_apps_router())
 

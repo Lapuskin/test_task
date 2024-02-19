@@ -3,6 +3,7 @@ from datetime import datetime
 from sqlalchemy.orm import Session
 
 from app.src.services.base_service import AbstractCRUDHandler
+from src.services.auth import bcrypt_context
 from src.models.notes_model import Note, User
 
 
@@ -57,6 +58,7 @@ class UserHandler(AbstractCRUDHandler):
         user = User(
             name=data["name"],
             email=data["email"],
+            password=bcrypt_context.hash(data["password"])
         )
         db.add(user)
         db.commit()

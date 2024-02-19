@@ -1,14 +1,18 @@
-from fastapi import APIRouter, Body, Depends
+from fastapi import APIRouter, Body, Depends, HTTPException
 from sqlalchemy.orm import Session
 from starlette.responses import JSONResponse
 
 from app.src.services.notes_services import UserHandler
 from src.config.db_settings.db_settings import get_db
+from src.services.auth import get_curr_user
 from src.services.base_service import AbstractCRUDHandler
 
 router = APIRouter(prefix='/users', tags=['users'])
 
 user_handler: AbstractCRUDHandler = UserHandler()
+
+
+
 
 @router.get('/')
 def get_all(db: Session = Depends(get_db)):
